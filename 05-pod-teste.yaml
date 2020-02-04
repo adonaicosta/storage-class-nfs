@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pv-to-pod
+spec:
+  storageClassName: standard
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: teste
+  name: teste
+spec:
+  containers:
+  - args:
+    - sleep
+    - "9999"
+    image: alpine
+    name: teste
+    volumeMounts:
+    - name: myapp
+      mountPath: /myapp
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+  volumes:
+  - name: myapp
+    persistentVolumeClaim:
+      claimName: pv-to-pod
+status: {}

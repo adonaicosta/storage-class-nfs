@@ -7,3 +7,5 @@ metadata:
 provisioner: adonaidomain.net/nfs
 mountOptions:
   - vers=4.1
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
